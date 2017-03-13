@@ -1,0 +1,30 @@
+name: StaffChat
+authors: [oskar3123]
+main: me.oskar3123.staffchat.Main
+version: 1.0.0
+
+commands:
+  staffchat:
+    usage: /<command>
+    description: Used to reload the config file.
+
+permissions:
+  staffchat.*:
+    description: Gives you permission to everything in the plugin.
+    children:
+      staffchat.use: true
+      staffchat.see: true
+      staffchat.reload: true
+      staffchat.command: true
+  staffchat.use:
+    description: Gives you permission to use the staffchat.
+    default: op
+  staffchat.see:
+    description: Gives you permission to see the staffchat.
+    default: op
+  staffchat.reload:
+    description: Allows you to reload the config file.
+    default: op
+  staffchat.command:
+    description: Allows you to use the staffchat command.
+    default: true

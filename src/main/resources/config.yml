@@ -1,0 +1,7 @@
+settings:
+  character: '@'
+  format: '&b{NAME}: {MESSAGE}'
+messages:
+  prefix: '&7StaffChat&8> &7'
+  nopermission: '&cYou don''t have permission to do that'
+  reloaded: 'Reloaded the config file'
