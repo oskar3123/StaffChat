@@ -1,37 +1,38 @@
-package me.oskar3123.staffchat.command;
+package me.oskar3123.staffchat.bungee.command;
 
-import me.oskar3123.staffchat.Main;
-import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
+import me.oskar3123.staffchat.bungee.BungeeMain;
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.CommandSender;
+import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.plugin.Command;
+import net.md_5.bungee.config.Configuration;
 
-public class StaffChatCommand implements CommandExecutor
+public class BungeeStaffChatCommand extends Command
 {
 
-    private Main plugin;
-    private FileConfiguration config;
+    private BungeeMain plugin;
+    private Configuration config;
+    private static final String LABEL = "staffchat";
 
-    public StaffChatCommand(Main plugin)
+    public BungeeStaffChatCommand(BungeeMain plugin)
     {
+        super(LABEL);
         this.plugin = plugin;
         config = plugin.getConfig();
     }
 
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
+    public void execute(CommandSender sender, String[] args)
     {
         String noPerm = clr(config.getString("messages.prefix") + config.getString("messages.nopermission"));
         if (!sender.hasPermission(plugin.commandPerm))
         {
             sender.sendMessage(noPerm);
-            return true;
+            return;
         }
         if (args.length < 1)
         {
-            help(sender, label);
-            return true;
+            help(sender, LABEL);
+            return;
         }
         if (args[0].equalsIgnoreCase("reload"))
         {
@@ -43,10 +44,10 @@ public class StaffChatCommand implements CommandExecutor
             {
                 sender.sendMessage(noPerm);
             }
-            return true;
+            return;
         }
-        help(sender, label);
-        return true;
+        help(sender, LABEL);
+        return;
     }
 
     private void help(CommandSender sender, String label)
@@ -55,7 +56,7 @@ public class StaffChatCommand implements CommandExecutor
         sender.sendMessage(prefix + "Version " + plugin.getDescription().getVersion() + ", made by oskar3123");
         if (sender.hasPermission(plugin.reloadPerm))
         {
-            sender.sendMessage(prefix + "/" + label + " reload - Reloads the config file");
+            sender.sendMessage(TextComponent.fromLegacyText(prefix + "/" + label + " reload - Reloads the config file"));
         }
     }
 

@@ -1,6 +1,6 @@
-package me.oskar3123.staffchat.event;
+package me.oskar3123.staffchat.spigot.event;
 
-import me.oskar3123.staffchat.Main;
+import me.oskar3123.staffchat.spigot.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;

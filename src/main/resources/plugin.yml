@@ -1,6 +1,6 @@
 name: StaffChat
 authors: [oskar3123]
-main: me.oskar3123.staffchat.Main
+main: me.oskar3123.staffchat.spigot.Main
 version: 1.0.0
 
 commands:
