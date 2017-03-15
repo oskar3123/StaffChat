@@ -3,6 +3,7 @@ package me.oskar3123.staffchat.bungee.command;
 import me.oskar3123.staffchat.bungee.BungeeMain;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
+import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.config.Configuration;
@@ -10,33 +11,32 @@ import net.md_5.bungee.config.Configuration;
 public class BungeeStaffChatCommand extends Command
 {
 
-    private BungeeMain plugin;
+    private BungeeMain main;
     private Configuration config;
-    private static final String LABEL = "staffchat";
 
-    public BungeeStaffChatCommand(BungeeMain plugin)
+    public BungeeStaffChatCommand(BungeeMain main)
     {
-        super(LABEL);
-        this.plugin = plugin;
-        config = plugin.getConfig();
+        super("staffchat");
+        this.main = main;
+        config = main.getConfig();
     }
 
     public void execute(CommandSender sender, String[] args)
     {
-        String noPerm = clr(config.getString("messages.prefix") + config.getString("messages.nopermission"));
-        if (!sender.hasPermission(plugin.commandPerm))
+        BaseComponent[] noPerm = txt(config.getString("messages.prefix") + config.getString("messages.nopermission"));
+        if (!sender.hasPermission(main.commandPerm))
         {
             sender.sendMessage(noPerm);
             return;
         }
         if (args.length < 1)
         {
-            help(sender, LABEL);
+            help(sender, getName());
             return;
         }
         if (args[0].equalsIgnoreCase("reload"))
         {
-            if (sender.hasPermission(plugin.reloadPerm))
+            if (sender.hasPermission(main.reloadPerm))
             {
                 reload(sender);
             }
@@ -46,30 +46,29 @@ public class BungeeStaffChatCommand extends Command
             }
             return;
         }
-        help(sender, LABEL);
-        return;
+        help(sender, getName());
     }
 
     private void help(CommandSender sender, String label)
     {
-        String prefix = clr(config.getString("messages.prefix"));
-        sender.sendMessage(prefix + "Version " + plugin.getDescription().getVersion() + ", made by oskar3123");
-        if (sender.hasPermission(plugin.reloadPerm))
+        String prefix = config.getString("messages.prefix");
+        sender.sendMessage(txt(prefix + "Version " + main.getDescription().getVersion() + ", made by oskar3123"));
+        if (sender.hasPermission(main.reloadPerm))
         {
-            sender.sendMessage(TextComponent.fromLegacyText(prefix + "/" + label + " reload - Reloads the config file"));
+            sender.sendMessage(txt(prefix + "/" + label + " reload - Reloads the config file"));
         }
     }
 
     private void reload(CommandSender sender)
     {
-        plugin.reloadConfig();
-        config = plugin.getConfig();
-        sender.sendMessage(clr(config.getString("messages.prefix") + config.getString("messages.reloaded")));
+        main.reloadConfig();
+        config = main.getConfig();
+        sender.sendMessage(txt(config.getString("messages.prefix") + config.getString("messages.reloaded")));
     }
 
-    private String clr(String string)
+    private BaseComponent[] txt(String text)
     {
-        return ChatColor.translateAlternateColorCodes('&', string);
+        return TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&', text));
     }
 
 }

@@ -7,6 +7,7 @@ import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
 import net.md_5.bungee.config.YamlConfiguration;
+import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,7 +28,7 @@ public class BungeeMain extends Plugin
         saveDefaultConfig();
         if (!reloadConfig())
         {
-            getLogger().severe("Could not load config file, disabling plugin.");
+            getLogger().severe("Could not load config file, using defaults.");
             return;
         }
         registerCommands();
@@ -53,6 +54,7 @@ public class BungeeMain extends Plugin
         }
         catch (IOException e)
         {
+            config = ConfigurationProvider.getProvider(YamlConfiguration.class).load(getResourceAsStream("config.yml"));
             return false;
         }
     }
@@ -66,6 +68,7 @@ public class BungeeMain extends Plugin
     {
         if (!getDataFolder().exists())
         {
+            //noinspection ResultOfMethodCallIgnored
             getDataFolder().mkdir();
         }
 
