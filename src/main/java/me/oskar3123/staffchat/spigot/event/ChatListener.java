@@ -12,22 +12,22 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 public class ChatListener implements Listener
 {
 
-    private Main plugin;
+    private Main main;
 
-    public ChatListener(Main plugin)
+    public ChatListener(Main main)
     {
-        this.plugin = plugin;
+        this.main = main;
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void chat(AsyncPlayerChatEvent event)
     {
-        if (!event.getPlayer().hasPermission(plugin.usePerm))
+        if (!event.getPlayer().hasPermission(main.usePerm))
         {
             return;
         }
 
-        FileConfiguration config = plugin.getConfig();
+        FileConfiguration config = main.getConfig();
         String character = config.getString("settings.character");
         if (!event.getMessage().startsWith(character))
         {
@@ -41,9 +41,9 @@ public class ChatListener implements Listener
         final String message = format;
 
         Bukkit.getOnlinePlayers().stream()
-                .filter(p -> p.hasPermission(plugin.seePerm))
+                .filter(p -> p.hasPermission(main.seePerm))
                 .forEach(p -> p.sendMessage(message));
-        plugin.getLogger().info(ChatColor.stripColor(message));
+        main.getLogger().info(ChatColor.stripColor(message));
 
         event.setCancelled(true);
     }

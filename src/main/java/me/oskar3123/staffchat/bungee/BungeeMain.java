@@ -2,12 +2,10 @@ package me.oskar3123.staffchat.bungee;
 
 import me.oskar3123.staffchat.bungee.command.BungeeStaffChatCommand;
 import me.oskar3123.staffchat.bungee.event.BungeeChatListener;
-import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
 import net.md_5.bungee.config.YamlConfiguration;
-import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
 import java.io.IOException;

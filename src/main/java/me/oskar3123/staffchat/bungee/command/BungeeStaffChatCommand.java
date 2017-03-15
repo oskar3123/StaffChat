@@ -66,9 +66,14 @@ public class BungeeStaffChatCommand extends Command
         sender.sendMessage(txt(config.getString("messages.prefix") + config.getString("messages.reloaded")));
     }
 
+    private String clr(String string)
+    {
+        return ChatColor.translateAlternateColorCodes('&', string);
+    }
+
     private BaseComponent[] txt(String text)
     {
-        return TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&', text));
+        return TextComponent.fromLegacyText(clr(text));
     }
 
 }
