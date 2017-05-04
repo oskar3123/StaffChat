@@ -10,21 +10,21 @@ import org.bukkit.configuration.file.FileConfiguration;
 public class StaffChatCommand implements CommandExecutor
 {
 
-    private Main main;
+    private Main plugin;
     private FileConfiguration config;
 
-    public StaffChatCommand(Main main)
+    public StaffChatCommand(Main plugin)
     {
-        this.main = main;
-        config = main.getConfig();
+        this.plugin = plugin;
+        config = plugin.getConfig();
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
     {
-        String noPerm = clr(config.getString("messages.prefix") + config.getString("messages.nopermission"));
-        if (!sender.hasPermission(main.commandPerm))
+        if (!sender.hasPermission(plugin.commandPerm))
         {
+            String noPerm = clr(config.getString("messages.prefix") + config.getString("messages.nopermission"));
             sender.sendMessage(noPerm);
             return true;
         }
@@ -35,7 +35,7 @@ public class StaffChatCommand implements CommandExecutor
         }
         if (args[0].equalsIgnoreCase("reload"))
         {
-            if (sender.hasPermission(main.reloadPerm))
+            if (sender.hasPermission(plugin.reloadPerm))
             {
                 reload(sender);
             }
@@ -52,8 +52,8 @@ public class StaffChatCommand implements CommandExecutor
     private void help(CommandSender sender, String label)
     {
         String prefix = clr(config.getString("messages.prefix"));
-        sender.sendMessage(prefix + "Version " + main.getDescription().getVersion() + ", made by oskar3123");
-        if (sender.hasPermission(main.reloadPerm))
+        sender.sendMessage(prefix + "Version " + plugin.getDescription().getVersion() + ", made by oskar3123");
+        if (sender.hasPermission(plugin.reloadPerm))
         {
             sender.sendMessage(prefix + "/" + label + " reload - Reloads the config file");
         }
@@ -61,8 +61,8 @@ public class StaffChatCommand implements CommandExecutor
 
     private void reload(CommandSender sender)
     {
-        main.reloadConfig();
-        config = main.getConfig();
+        plugin.reloadConfig();
+        config = plugin.getConfig();
         sender.sendMessage(clr(config.getString("messages.prefix") + config.getString("messages.reloaded")));
     }
 
