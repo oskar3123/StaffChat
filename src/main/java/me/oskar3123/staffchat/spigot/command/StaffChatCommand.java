@@ -22,9 +22,9 @@ public class StaffChatCommand implements CommandExecutor
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
     {
+        String noPerm = clr(config.getString("messages.prefix") + config.getString("messages.nopermission"));
         if (!sender.hasPermission(plugin.commandPerm))
         {
-            String noPerm = clr(config.getString("messages.prefix") + config.getString("messages.nopermission"));
             sender.sendMessage(noPerm);
             return true;
         }
