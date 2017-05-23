@@ -23,6 +23,7 @@ public class BungeeMain extends Plugin
 
     public void onEnable()
     {
+        new MetricsLite(this);
         saveDefaultConfig();
         if (!reloadConfig())
         {

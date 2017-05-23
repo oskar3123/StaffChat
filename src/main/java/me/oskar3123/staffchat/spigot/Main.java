@@ -15,6 +15,7 @@ public class Main extends JavaPlugin
 
     public void onEnable()
     {
+        new MetricsLite(this);
         saveDefaultConfig();
         registerCommands();
         registerEvents();
