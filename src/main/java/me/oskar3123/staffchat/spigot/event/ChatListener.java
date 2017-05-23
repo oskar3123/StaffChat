@@ -12,22 +12,22 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 public class ChatListener implements Listener
 {
 
-    private Main main;
+    private Main plugin;
 
-    public ChatListener(Main main)
+    public ChatListener(Main plugin)
     {
-        this.main = main;
+        this.plugin = plugin;
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void chat(AsyncPlayerChatEvent event)
     {
-        if (!event.getPlayer().hasPermission(main.usePerm))
+        if (!event.getPlayer().hasPermission(plugin.usePerm))
         {
             return;
         }
 
-        FileConfiguration config = main.getConfig();
+        FileConfiguration config = plugin.getConfig();
         String character = config.getString("settings.character");
         if (!event.getMessage().startsWith(character))
         {
@@ -37,20 +37,15 @@ public class ChatListener implements Listener
         String format = config.getString("settings.format");
         format = format.replaceAll("\\{NAME\\}", event.getPlayer().getName());
         format = format.replaceAll("\\{MESSAGE\\}", event.getMessage().substring(character.length()).trim());
-        format = clr(format);
+        format = ChatColor.translateAlternateColorCodes('&', format);
         final String message = format;
 
         Bukkit.getOnlinePlayers().stream()
-                .filter(p -> p.hasPermission(main.seePerm))
+                .filter(p -> p.hasPermission(plugin.seePerm))
                 .forEach(p -> p.sendMessage(message));
-        main.getLogger().info(ChatColor.stripColor(message));
+        plugin.getLogger().info(ChatColor.stripColor(message));
 
         event.setCancelled(true);
-    }
-
-    private String clr(String string)
-    {
-        return ChatColor.translateAlternateColorCodes('&', string);
     }
 
 }

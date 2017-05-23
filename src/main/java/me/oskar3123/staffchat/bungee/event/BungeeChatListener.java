@@ -13,11 +13,11 @@ import net.md_5.bungee.event.EventHandler;
 public class BungeeChatListener implements Listener
 {
 
-    private BungeeMain main;
+    private BungeeMain plugin;
 
-    public BungeeChatListener(BungeeMain main)
+    public BungeeChatListener(BungeeMain plugin)
     {
-        this.main = main;
+        this.plugin = plugin;
     }
 
     @EventHandler
@@ -29,12 +29,12 @@ public class BungeeChatListener implements Listener
         }
 
         ProxiedPlayer player = (ProxiedPlayer) event.getSender();
-        if (!player.hasPermission(main.usePerm))
+        if (!player.hasPermission(plugin.usePerm))
         {
             return;
         }
 
-        Configuration config = main.getConfig();
+        Configuration config = plugin.getConfig();
         String character = config.getString("settings.character");
         if (!event.getMessage().startsWith(character))
         {
@@ -46,10 +46,10 @@ public class BungeeChatListener implements Listener
         format = format.replaceAll("\\{MESSAGE\\}", event.getMessage().substring(character.length()).trim());
         final BaseComponent[] message = txt(format);
 
-        main.getProxy().getPlayers().stream()
-                .filter(p -> p.hasPermission(main.seePerm))
+        plugin.getProxy().getPlayers().stream()
+                .filter(p -> p.hasPermission(plugin.seePerm))
                 .forEach(p -> p.sendMessage(message));
-        main.getLogger().info(ChatColor.stripColor(clr(format)));
+        plugin.getLogger().info(ChatColor.stripColor(clr(format)));
 
         event.setCancelled(true);
     }

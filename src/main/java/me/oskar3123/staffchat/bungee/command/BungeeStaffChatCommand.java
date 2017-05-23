@@ -11,20 +11,20 @@ import net.md_5.bungee.config.Configuration;
 public class BungeeStaffChatCommand extends Command
 {
 
-    private BungeeMain main;
+    private BungeeMain plugin;
     private Configuration config;
 
-    public BungeeStaffChatCommand(BungeeMain main)
+    public BungeeStaffChatCommand(BungeeMain plugin)
     {
         super("staffchat");
-        this.main = main;
-        config = main.getConfig();
+        this.plugin = plugin;
+        config = plugin.getConfig();
     }
 
     public void execute(CommandSender sender, String[] args)
     {
         BaseComponent[] noPerm = txt(config.getString("messages.prefix") + config.getString("messages.nopermission"));
-        if (!sender.hasPermission(main.commandPerm))
+        if (!sender.hasPermission(plugin.commandPerm))
         {
             sender.sendMessage(noPerm);
             return;
@@ -36,7 +36,7 @@ public class BungeeStaffChatCommand extends Command
         }
         if (args[0].equalsIgnoreCase("reload"))
         {
-            if (sender.hasPermission(main.reloadPerm))
+            if (sender.hasPermission(plugin.reloadPerm))
             {
                 reload(sender);
             }
@@ -52,8 +52,8 @@ public class BungeeStaffChatCommand extends Command
     private void help(CommandSender sender, String label)
     {
         String prefix = config.getString("messages.prefix");
-        sender.sendMessage(txt(prefix + "Version " + main.getDescription().getVersion() + ", made by oskar3123"));
-        if (sender.hasPermission(main.reloadPerm))
+        sender.sendMessage(txt(prefix + "Version " + plugin.getDescription().getVersion() + ", made by oskar3123"));
+        if (sender.hasPermission(plugin.reloadPerm))
         {
             sender.sendMessage(txt(prefix + "/" + label + " reload - Reloads the config file"));
         }
@@ -61,8 +61,8 @@ public class BungeeStaffChatCommand extends Command
 
     private void reload(CommandSender sender)
     {
-        main.reloadConfig();
-        config = main.getConfig();
+        plugin.reloadConfig();
+        config = plugin.getConfig();
         sender.sendMessage(txt(config.getString("messages.prefix") + config.getString("messages.reloaded")));
     }
 
