@@ -1,4 +1,4 @@
-# StaffChat
+# [StaffChat](https://oskar3123.github.io/StaffChat)
 ![Build status](https://api.travis-ci.org/oskar3123/StaffChat.svg?branch=master "Build status")
 
 Simple and highly configurable staffchat
