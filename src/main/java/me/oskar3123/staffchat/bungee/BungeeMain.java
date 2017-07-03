@@ -28,7 +28,6 @@ public class BungeeMain extends Plugin
         if (!reloadConfig())
         {
             getLogger().severe("Could not load config file, using defaults.");
-            return;
         }
         registerCommands();
         registerEvents();
