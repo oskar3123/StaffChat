@@ -5,7 +5,7 @@ deploy:
   provider: releases
   api_key: $GITHUB_KEY
   file_glob: true
-  file: "*/target/staffchat*.jar"
+  file: "*/staffchat*.jar"
   skip_cleanup: true
   on:
     tags: true
