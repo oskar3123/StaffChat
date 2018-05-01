@@ -9,3 +9,50 @@ Simple and highly configurable staffchat
 
 ## Download
 You can download the plugin from the [Spigot resource page](https://www.spigotmc.org/resources/37804/) or via the [GitHub releases](https://github.com/oskar3123/StaffChat/releases)
+
+## Event API (For developers)
+For Bukkit/Spigot servers:
+```java
+public class StaffChatListener implements Listener
+{
+
+    @EventHandler
+    public void onStaffChat(StaffChatEvent event)
+    {
+        // String format = event.getFormat();
+        // event.setFormat("&b{NAME} >> {MESSAGE}");
+        // String message = event.getMessage();
+        // Player player = event.getPlayer();
+        // event.setCancelled(true);
+    }
+
+}
+```
+Register the listener with
+```java
+getServer().getPluginManager().registerEvents(new StaffChatListener(), this);
+```
+in your plugin onEnable.
+
+For BungeeCord servers:
+```java
+public class StaffChatListener implements Listener
+{
+
+    @EventHandler
+    public void onStaffChat(BungeeStaffChatEvent event)
+    {
+        // String format = event.getFormat();
+        // event.setFormat("&b{NAME} >> {MESSAGE}");
+        // String message = event.getMessage();
+        // Player player = event.getPlayer();
+        // event.setCancelled(true);
+    }
+
+}
+```
+Register the listener with
+```java
+getProxy().getPluginManager().registerListener(this, new StaffChatListener());
+```
+in your plugin onEnable.
