@@ -1,7 +1,7 @@
 package me.oskar3123.staffchat.bungee;
 
 import me.oskar3123.staffchat.bungee.command.BungeeStaffChatCommand;
-import me.oskar3123.staffchat.bungee.event.BungeeChatListener;
+import me.oskar3123.staffchat.bungee.listener.BungeeChatListener;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;

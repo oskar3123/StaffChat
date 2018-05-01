@@ -1,7 +1,7 @@
 package me.oskar3123.staffchat.spigot;
 
 import me.oskar3123.staffchat.spigot.command.StaffChatCommand;
-import me.oskar3123.staffchat.spigot.event.ChatListener;
+import me.oskar3123.staffchat.spigot.listener.ChatListener;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
