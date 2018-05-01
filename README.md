@@ -11,7 +11,9 @@ Simple and highly configurable staffchat
 You can download the plugin from the [Spigot resource page](https://www.spigotmc.org/resources/37804/) or via the [GitHub releases](https://github.com/oskar3123/StaffChat/releases)
 
 ## Event API (For developers)
-For Bukkit/Spigot servers:
+
+### Bukkit/Spigot
+
 ```java
 public class StaffChatListener implements Listener
 {
@@ -34,7 +36,8 @@ getServer().getPluginManager().registerEvents(new StaffChatListener(), this);
 ```
 in your plugin onEnable.
 
-For BungeeCord servers:
+### BungeeCord
+
 ```java
 public class StaffChatListener implements Listener
 {
