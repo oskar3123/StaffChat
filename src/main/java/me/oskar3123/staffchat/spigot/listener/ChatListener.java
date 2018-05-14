@@ -2,6 +2,7 @@ package me.oskar3123.staffchat.spigot.listener;
 
 import me.oskar3123.staffchat.spigot.Main;
 import me.oskar3123.staffchat.spigot.event.StaffChatEvent;
+import me.oskar3123.staffchat.util.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -45,8 +46,8 @@ public class ChatListener implements Listener
         }
         format = chatEvent.getFormat();
 
-        format = format.replaceAll("\\{NAME\\}", sanitize(event.getPlayer().getName()));
-        format = format.replaceAll("\\{MESSAGE\\}", sanitize(message));
+        format = format.replaceAll("\\{NAME\\}", StringUtils.sanitize(event.getPlayer().getName()));
+        format = format.replaceAll("\\{MESSAGE\\}", StringUtils.sanitize(message));
         format = ChatColor.translateAlternateColorCodes('&', format);
         final String finalMessage = format;
 
@@ -56,13 +57,6 @@ public class ChatListener implements Listener
         plugin.getLogger().info(ChatColor.stripColor(finalMessage));
 
         event.setCancelled(true);
-    }
-
-    private String sanitize(String string)
-    {
-        string = string.replaceAll("\\\\", "\\\\\\\\");
-        string = string.replaceAll("\\$", "\\\\\\$");
-        return string;
     }
 
 }

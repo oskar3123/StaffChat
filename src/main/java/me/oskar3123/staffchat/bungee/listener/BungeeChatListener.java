@@ -2,6 +2,7 @@ package me.oskar3123.staffchat.bungee.listener;
 
 import me.oskar3123.staffchat.bungee.BungeeMain;
 import me.oskar3123.staffchat.bungee.event.BungeeStaffChatEvent;
+import me.oskar3123.staffchat.util.StringUtils;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -53,8 +54,8 @@ public class BungeeChatListener implements Listener
         }
         format = chatEvent.getFormat();
 
-        format = format.replaceAll("\\{NAME\\}", sanitize(player.getName()));
-        format = format.replaceAll("\\{MESSAGE\\}", sanitize(message));
+        format = format.replaceAll("\\{NAME\\}", StringUtils.sanitize(player.getName()));
+        format = format.replaceAll("\\{MESSAGE\\}", StringUtils.sanitize(message));
         final BaseComponent[] messageComponents = txt(format);
 
         plugin.getProxy().getPlayers().stream()
@@ -73,13 +74,6 @@ public class BungeeChatListener implements Listener
     private BaseComponent[] txt(String text)
     {
         return TextComponent.fromLegacyText(clr(text));
-    }
-
-    private String sanitize(String string)
-    {
-        string = string.replaceAll("\\\\", "\\\\\\\\");
-        string = string.replaceAll("\\$", "\\\\\\$");
-        return string;
     }
 
 }
