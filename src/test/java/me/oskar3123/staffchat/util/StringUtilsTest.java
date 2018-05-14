@@ -12,4 +12,5 @@ public class StringUtilsTest
     {
         assertEquals("message", "hejsan \\$ \\\\ xd", StringUtils.sanitize("hejsan $ \\ xd"));
     }
+
 }
