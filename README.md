@@ -2,7 +2,6 @@
 [![All Release](https://img.shields.io/github/downloads/oskar3123/StaffChat/total.svg?style=flat)](https://github.com/oskar3123/StaffChat/releases/latest)
 [![Latest Release](https://img.shields.io/github/release/oskar3123/StaffChat.svg?style=flat)](https://github.com/oskar3123/StaffChat/releases/latest)
 [![Github commits (since latest release)](https://img.shields.io/github/commits-since/oskar3123/StaffChat/latest.svg?style=flat)](https://github.com/oskar3123/StaffChat/commits/master)
-[![Coverage Status](https://coveralls.io/repos/github/oskar3123/StaffChat/badge.svg?branch=master)](https://coveralls.io/github/oskar3123/StaffChat?branch=master)
 
 # [StaffChat](https://oskar3123.github.io/StaffChat)
 
