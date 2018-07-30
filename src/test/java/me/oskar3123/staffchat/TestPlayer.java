@@ -7,6 +7,7 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.block.Block;
 import org.bukkit.block.PistonMoveReaction;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.conversations.Conversation;
 import org.bukkit.conversations.ConversationAbandonedEvent;
 import org.bukkit.entity.*;
@@ -50,6 +51,36 @@ public class TestPlayer implements Player
 
     @Override
     public void setPlayerListName(String s)
+    {
+
+    }
+
+    @Override
+    public String getPlayerListHeader()
+    {
+        return null;
+    }
+
+    @Override
+    public String getPlayerListFooter()
+    {
+        return null;
+    }
+
+    @Override
+    public void setPlayerListHeader(String s)
+    {
+
+    }
+
+    @Override
+    public void setPlayerListFooter(String s)
+    {
+
+    }
+
+    @Override
+    public void setPlayerListHeaderFooter(String s, String s1)
     {
 
     }
@@ -253,15 +284,15 @@ public class TestPlayer implements Player
     }
 
     @Override
-    public boolean sendChunkChange(Location location, int i, int i1, int i2, byte[] bytes)
+    public void sendBlockChange(Location location, BlockData blockData)
     {
-        return false;
+
     }
 
     @Override
-    public void sendBlockChange(Location location, int i, byte b)
+    public boolean sendChunkChange(Location location, int i, int i1, int i2, byte[] bytes)
     {
-
+        return false;
     }
 
     @Override
@@ -1604,6 +1635,18 @@ public class TestPlayer implements Player
 
     @Override
     public void setGliding(boolean b)
+    {
+
+    }
+
+    @Override
+    public boolean isSwimming()
+    {
+        return false;
+    }
+
+    @Override
+    public void setSwimming(boolean b)
     {
 
     }

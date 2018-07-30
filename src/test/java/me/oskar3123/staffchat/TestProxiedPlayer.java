@@ -1,9 +1,6 @@
 package me.oskar3123.staffchat;
 
-import net.md_5.bungee.api.Callback;
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.SkinConfiguration;
-import net.md_5.bungee.api.Title;
+import net.md_5.bungee.api.*;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.PendingConnection;
@@ -65,6 +62,12 @@ public class TestProxiedPlayer implements ProxiedPlayer
 
     @Override
     public void connect(ServerInfo serverInfo, Callback<Boolean> callback, ServerConnectEvent.Reason reason)
+    {
+
+    }
+
+    @Override
+    public void connect(ServerConnectRequest serverConnectRequest)
     {
 
     }
