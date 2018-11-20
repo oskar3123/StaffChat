@@ -12,10 +12,15 @@ import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.event.EventHandler;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
+
 public class BungeeChatListener implements Listener
 {
 
     private BungeeMain plugin;
+    private Set<UUID> toggledPlayers = new HashSet<>();
 
     public BungeeChatListener(BungeeMain plugin)
     {
@@ -25,6 +30,10 @@ public class BungeeChatListener implements Listener
     @EventHandler
     public void chat(ChatEvent event)
     {
+        if (event.getMessage().startsWith("/"))
+        {
+            return;
+        }
         if (!(event.getSender() instanceof ProxiedPlayer))
         {
             return;
@@ -38,13 +47,14 @@ public class BungeeChatListener implements Listener
 
         Configuration config = plugin.getConfig();
         String character = config.getString("settings.character");
-        if (!event.getMessage().startsWith(character))
+        boolean isToggled = toggledPlayers.contains(player.getUniqueId());
+        if (!event.getMessage().startsWith(character) && !isToggled)
         {
             return;
         }
 
         String format = config.getString("settings.format");
-        String message = event.getMessage().substring(character.length()).trim();
+        String message = event.getMessage().substring(isToggled ? 0 : character.length()).trim();
 
         BungeeStaffChatEvent chatEvent = new BungeeStaffChatEvent(player, format, message);
         plugin.getProxy().getPluginManager().callEvent(chatEvent);
@@ -74,6 +84,17 @@ public class BungeeChatListener implements Listener
     private BaseComponent[] txt(String text)
     {
         return TextComponent.fromLegacyText(clr(text));
+    }
+
+    public boolean togglePlayer(UUID player)
+    {
+        if (toggledPlayers.contains(player))
+        {
+            toggledPlayers.remove(player);
+            return false;
+        }
+        toggledPlayers.add(player);
+        return true;
     }
 
 }

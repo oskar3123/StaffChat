@@ -6,6 +6,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 
 public class StaffChatCommand implements CommandExecutor
 {
@@ -45,14 +46,36 @@ public class StaffChatCommand implements CommandExecutor
             }
             return true;
         }
+        else if (args[0].equalsIgnoreCase("toggle"))
+        {
+            if (sender.hasPermission(plugin.usePerm))
+            {
+                toggle(sender);
+            }
+            else
+            {
+                sender.sendMessage(noPerm);
+            }
+            return true;
+        }
         help(sender, label);
         return true;
+    }
+
+    private void playerOnly(CommandSender sender)
+    {
+        sender.sendMessage(clr(config.getString("messages.prefix") + config.getString("messages.playeronly")));
     }
 
     private void help(CommandSender sender, String label)
     {
         String prefix = clr(config.getString("messages.prefix"));
         sender.sendMessage(prefix + "Version " + plugin.getDescription().getVersion() + ", made by oskar3123");
+        if (sender.hasPermission(plugin.usePerm))
+        {
+            sender.sendMessage(prefix + "Message prefix: " + config.getString("settings.character"));
+            sender.sendMessage(prefix + "/" + label + " toggle - Toggles auto staffchat");
+        }
         if (sender.hasPermission(plugin.reloadPerm))
         {
             sender.sendMessage(prefix + "/" + label + " reload - Reloads the config file");
@@ -64,6 +87,18 @@ public class StaffChatCommand implements CommandExecutor
         plugin.reloadConfig();
         config = plugin.getConfig();
         sender.sendMessage(clr(config.getString("messages.prefix") + config.getString("messages.reloaded")));
+    }
+
+    private void toggle(CommandSender sender)
+    {
+        if (!(sender instanceof Player))
+        {
+            playerOnly(sender);
+            return;
+        }
+        boolean toggled = plugin.chatListener.togglePlayer(((Player) sender).getUniqueId());
+        String state = toggled ? config.getString("messages.onstring") : config.getString("messages.offstring");
+        sender.sendMessage(clr(config.getString("messages.prefix") + String.format(config.getString("messages.toggled"), state)));
     }
 
     private String clr(String string)

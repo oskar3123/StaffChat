@@ -1,7 +1,12 @@
 settings:
   character: '@'
   format: '&b{NAME}: {MESSAGE}'
+  replaceplaceholdersinmessage: true
 messages:
   prefix: '&7StaffChat&8> &7'
   nopermission: '&cYou don''t have permission to do that'
+  playeronly: '&cPlayer only command'
   reloaded: 'Reloaded the config file'
+  toggled: 'You toggled auto staffchat %s'
+  onstring: 'on'
+  offstring: 'off'

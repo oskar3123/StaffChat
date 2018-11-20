@@ -1,13 +1,13 @@
 name: StaffChat
 authors: [oskar3123]
 main: me.oskar3123.staffchat.spigot.Main
-version: 1.1.5
-
+api-version: 1.13
+version: 1.2.0
+softdepend: [PlaceholderAPI]
 commands:
   staffchat:
     usage: /<command>
     description: Used to reload the config file.
-
 permissions:
   staffchat.*:
     description: Gives you permission to everything in the plugin.

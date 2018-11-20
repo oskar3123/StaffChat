@@ -19,6 +19,7 @@ public class BungeeMain extends Plugin
     public final String seePerm = "staffchat.see";
     public final String commandPerm = "staffchat.command";
     public final String reloadPerm = "staffchat.reload";
+    public final BungeeChatListener chatListener = new BungeeChatListener(this);
     private Configuration config;
 
     public void onEnable()
@@ -40,7 +41,7 @@ public class BungeeMain extends Plugin
 
     private void registerEvents()
     {
-        getProxy().getPluginManager().registerListener(this, new BungeeChatListener(this));
+        getProxy().getPluginManager().registerListener(this, chatListener);
     }
 
     public boolean reloadConfig()
@@ -48,13 +49,40 @@ public class BungeeMain extends Plugin
         try
         {
             config = ConfigurationProvider.getProvider(YamlConfiguration.class).load(new File(getDataFolder(), "config.yml"));
+            loadDefaultValues();
             return true;
         }
         catch (IOException e)
         {
             config = ConfigurationProvider.getProvider(YamlConfiguration.class).load(getResourceAsStream("config.yml"));
+            loadDefaultValues();
             return false;
         }
+    }
+
+    private void loadDefaultValues()
+    {
+        String[] keys = new String[] {
+                "settings.character",
+                "settings.format",
+                "messages.prefix",
+                "messages.nopermission",
+                "messages.playeronly",
+                "messages.reloaded",
+                "messages.toggled",
+                "messages.onstring",
+                "messages.offstring",
+        };
+        Configuration def = ConfigurationProvider.getProvider(YamlConfiguration.class).load(getResourceAsStream("config.yml"));
+        for (String key : keys)
+        {
+            String v = config.getString(key);
+            if (v == null || v.isEmpty())
+            {
+                config.set(key, def.getString(key));
+            }
+        }
+        saveConfig();
     }
 
     public Configuration getConfig()
@@ -82,6 +110,19 @@ public class BungeeMain extends Plugin
             {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public void saveConfig()
+    {
+        try
+        {
+            ConfigurationProvider.getProvider(YamlConfiguration.class).save(config, new File(getDataFolder(), "config.yml"));
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            getLogger().severe("Failed to save config");
         }
     }
 

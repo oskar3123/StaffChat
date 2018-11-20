@@ -10,10 +10,15 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
+
 public class ChatListener implements Listener
 {
 
     private Main plugin;
+    private Set<UUID> toggledPlayers = new HashSet<>();
 
     public ChatListener(Main plugin)
     {
@@ -30,13 +35,18 @@ public class ChatListener implements Listener
 
         FileConfiguration config = plugin.getConfig();
         String character = config.getString("settings.character");
-        if (!event.getMessage().startsWith(character))
+        boolean isToggled = toggledPlayers.contains(event.getPlayer().getUniqueId());
+        if (!event.getMessage().startsWith(character) && !isToggled)
         {
             return;
         }
 
         String format = config.getString("settings.format");
-        String message = event.getMessage().substring(character.length()).trim();
+        String message = event.getMessage().substring(isToggled ? 0 : character.length()).trim();
+        if (config.getBoolean("settings.replaceplaceholdersinmessage"))
+        {
+            message = plugin.replacePlaceholders(event.getPlayer(), message);
+        }
 
         StaffChatEvent chatEvent = new StaffChatEvent(event.getPlayer(), format, message);
         Bukkit.getServer().getPluginManager().callEvent(chatEvent);
@@ -47,8 +57,10 @@ public class ChatListener implements Listener
         format = chatEvent.getFormat();
 
         format = format.replaceAll("\\{NAME\\}", StringUtils.sanitize(event.getPlayer().getName()));
-        format = format.replaceAll("\\{MESSAGE\\}", StringUtils.sanitize(message));
         format = ChatColor.translateAlternateColorCodes('&', format);
+        format = plugin.replacePlaceholders(event.getPlayer(), format);
+        format = format.replaceAll("\\{MESSAGE\\}", StringUtils.sanitize(message));
+
         final String finalMessage = format;
 
         Bukkit.getOnlinePlayers().stream()
@@ -57,6 +69,17 @@ public class ChatListener implements Listener
         plugin.getLogger().info(ChatColor.stripColor(finalMessage));
 
         event.setCancelled(true);
+    }
+
+    public boolean togglePlayer(UUID player)
+    {
+        if (toggledPlayers.contains(player))
+        {
+            toggledPlayers.remove(player);
+            return false;
+        }
+        toggledPlayers.add(player);
+        return true;
     }
 
 }
