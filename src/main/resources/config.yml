@@ -2,6 +2,7 @@ settings:
   character: '@'
   format: '&b{NAME}: {MESSAGE}'
   replaceplaceholdersinmessage: true
+  sendmessagestoallservers: true
 messages:
   prefix: '&7StaffChat&8> &7'
   nopermission: '&cYou don''t have permission to do that'

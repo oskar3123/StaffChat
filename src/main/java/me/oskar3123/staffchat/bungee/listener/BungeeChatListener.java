@@ -63,6 +63,7 @@ public class BungeeChatListener implements Listener
             return;
         }
         format = chatEvent.getFormat();
+        message = chatEvent.getMessage();
 
         format = format.replaceAll("\\{NAME\\}", StringUtils.sanitize(player.getName()));
         format = format.replaceAll("\\{MESSAGE\\}", StringUtils.sanitize(message));

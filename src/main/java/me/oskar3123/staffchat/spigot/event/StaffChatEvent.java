@@ -10,9 +10,9 @@ public class StaffChatEvent extends Event implements Cancellable
 
     private static HandlerList handlerList = new HandlerList();
     private final Player player;
-    private final String message;
     private boolean cancelled = false;
     private String format;
+    private String message;
 
     public StaffChatEvent(Player player, String format, String message)
     {
@@ -44,6 +44,11 @@ public class StaffChatEvent extends Event implements Cancellable
     public String getMessage()
     {
         return message;
+    }
+
+    public void setMessage(String message)
+    {
+        this.message = message;
     }
 
     @Override

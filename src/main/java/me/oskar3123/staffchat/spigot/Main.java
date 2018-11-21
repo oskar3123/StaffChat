@@ -18,6 +18,8 @@ public class Main extends JavaPlugin
 
     public void onEnable()
     {
+        getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+        getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", chatListener);
         new MetricsLite(this);
         saveDefaultConfig();
         registerCommands();

@@ -7,10 +7,10 @@ import net.md_5.bungee.api.plugin.Event;
 public class BungeeStaffChatEvent extends Event implements Cancellable
 {
 
-    private final String message;
     private final ProxiedPlayer player;
     private boolean cancelled = false;
     private String format;
+    private String message;
 
     public BungeeStaffChatEvent(ProxiedPlayer player, String format, String message)
     {
@@ -32,6 +32,11 @@ public class BungeeStaffChatEvent extends Event implements Cancellable
     public String getMessage()
     {
         return message;
+    }
+
+    public void setMessage(String message)
+    {
+        this.message = message;
     }
 
     public ProxiedPlayer getPlayer()
