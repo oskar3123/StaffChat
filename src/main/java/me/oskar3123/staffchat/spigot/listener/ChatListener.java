@@ -54,7 +54,7 @@ public class ChatListener implements Listener, PluginMessageListener
             message = plugin.replacePlaceholders(event.getPlayer(), message);
         }
 
-        StaffChatEvent chatEvent = new StaffChatEvent(event.getPlayer(), format, message);
+        StaffChatEvent chatEvent = new StaffChatEvent(event.isAsynchronous(), event.getPlayer(), format, message);
         Bukkit.getServer().getPluginManager().callEvent(chatEvent);
         if (chatEvent.isCancelled())
         {

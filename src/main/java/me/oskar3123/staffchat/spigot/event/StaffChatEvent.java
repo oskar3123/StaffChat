@@ -14,8 +14,9 @@ public class StaffChatEvent extends Event implements Cancellable
     private String format;
     private String message;
 
-    public StaffChatEvent(Player player, String format, String message)
+    public StaffChatEvent(boolean async, Player player, String format, String message)
     {
+        super(async);
         this.player = player;
         this.format = format;
         this.message = message;
