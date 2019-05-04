@@ -14,6 +14,8 @@ You can download the plugin from the [Spigot resource page](https://www.spigotmc
 
 ### Bukkit/Spigot
 
+Because the event API in 1.14+ is now strict between sync and async events you should check whether this was called synchronously or asynchronously by using `event.isAsynchronous()`
+
 ```java
 public class StaffChatListener implements Listener
 {
