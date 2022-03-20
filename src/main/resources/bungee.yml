@@ -1,4 +1,4 @@
 name: StaffChat
-authors: [oskar3123]
+authors: [ oskar3123 ]
 main: me.oskar3123.staffchat.bungee.BungeeMain
-version: 1.3.0
+version: SNAPSHOT
