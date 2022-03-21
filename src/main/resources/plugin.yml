@@ -2,7 +2,7 @@ name: StaffChat
 authors: [ oskar3123 ]
 main: me.oskar3123.staffchat.spigot.Main
 api-version: 1.13
-version: SNAPSHOT
+version: 1.4.0
 softdepend: [ PlaceholderAPI, DiscordSRV ]
 commands:
   staffchat:
