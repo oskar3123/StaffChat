@@ -11,3 +11,7 @@ messages:
   toggled: 'You toggled auto staffchat %s'
   onstring: 'on'
   offstring: 'off'
+discordsrv:
+  enable: false
+  channel: 'staffchat'
+  format: '{NAME} » {MESSAGE}'

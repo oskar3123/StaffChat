@@ -3,7 +3,7 @@ authors: [ oskar3123 ]
 main: me.oskar3123.staffchat.spigot.Main
 api-version: 1.13
 version: SNAPSHOT
-softdepend: [ PlaceholderAPI ]
+softdepend: [ PlaceholderAPI, DiscordSRV ]
 commands:
   staffchat:
     usage: /<command>
