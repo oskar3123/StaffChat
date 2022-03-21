@@ -3,6 +3,8 @@ package me.oskar3123.staffchat.spigot.listener;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
+import github.scarsz.discordsrv.DiscordSRV;
+import github.scarsz.discordsrv.util.DiscordUtil;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
@@ -68,6 +70,9 @@ public class ChatListener implements Listener, PluginMessageListener {
     format = format.replaceAll("\\{MESSAGE}", StringUtils.sanitize(message));
     final String finalMessage = format;
 
+    if (plugin.getConfig().getBoolean("discordsrv.enable")) {
+      sendDiscordMessage(event.getPlayer(), message);
+    }
     if (plugin.getConfig().getBoolean("settings.sendmessagestoallservers")) {
       sendForwardPluginMessage(event.getPlayer(), finalMessage);
     }
@@ -128,6 +133,21 @@ public class ChatListener implements Listener, PluginMessageListener {
     out.writeShort(data.length);
     out.write(data);
     player.sendPluginMessage(plugin, "BungeeCord", out.toByteArray());
+  }
+
+  private void sendDiscordMessage(Player player, String message) {
+    if (Bukkit.getPluginManager().isPluginEnabled("DiscordSRV")) {
+      String format =
+          plugin
+              .replacePlaceholders(player, plugin.getConfig().getString("discordsrv.format", ""))
+              .replaceAll("\\{NAME}", StringUtils.sanitize(player.getName()))
+              .replaceAll("\\{MESSAGE}", StringUtils.sanitize(message));
+      DiscordUtil.sendMessage(
+          DiscordSRV.getPlugin()
+              .getOptionalTextChannel(
+                  plugin.getConfig().getString("discordsrv.channel", "staffchat")),
+          format);
+    }
   }
 
   public boolean togglePlayer(@NotNull UUID player) {
