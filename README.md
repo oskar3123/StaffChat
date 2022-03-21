@@ -1,7 +1,15 @@
 [![Travis-CI](https://img.shields.io/travis/com/oskar3123/StaffChat.svg?style=flat)](https://app.travis-ci.com/github/oskar3123/StaffChat)
-[![All Release](https://img.shields.io/github/downloads/oskar3123/StaffChat/total.svg?style=flat)](https://github.com/oskar3123/StaffChat/releases/latest)
-[![Latest Release](https://img.shields.io/github/release/oskar3123/StaffChat.svg?style=flat)](https://github.com/oskar3123/StaffChat/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/oskar3123/StaffChat/total.svg?style=flat)](https://github.com/oskar3123/StaffChat/releases/latest)
+
+[![Latest Release](https://img.shields.io/github/v/release/oskar3123/StaffChat.svg?style=flat)](https://github.com/oskar3123/StaffChat/releases/latest)
 [![Github commits (since latest release)](https://img.shields.io/github/commits-since/oskar3123/StaffChat/latest.svg?style=flat)](https://github.com/oskar3123/StaffChat/commits/master)
+[![Latest Pre-release](https://img.shields.io/github/v/release/oskar3123/StaffChat.svg?style=flat&include_prereleases)](https://github.com/oskar3123/StaffChat/releases)
+[![Github commits (since latest pre-release)](https://img.shields.io/github/commits-since/oskar3123/StaffChat/latest.svg?style=flat&include_prereleases)](https://github.com/oskar3123/StaffChat/commits/master)
+
+[![Open Issues](https://img.shields.io/github/issues/oskar3123/StaffChat)](https://github.com/oskar3123/StaffChat/issues?q=is%3Aopen+is%3Aissue)
+[![Closed Issues](https://img.shields.io/github/issues-closed/oskar3123/StaffChat)](https://github.com/oskar3123/StaffChat/issues?q=is%3Aissue+is%3Aclosed)
+[![Open Pull requests](https://img.shields.io/github/issues-pr/oskar3123/StaffChat)](https://github.com/oskar3123/StaffChat/pulls?q=is%3Aopen+is%3Apr)
+[![Closed Pull requests](https://img.shields.io/github/issues-pr-closed/oskar3123/StaffChat)](https://github.com/oskar3123/StaffChat/pulls?q=is%3Apr+is%3Aclosed)
 
 # [StaffChat](https://oskar3123.github.io/StaffChat)
 
