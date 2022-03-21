@@ -1,59 +1,53 @@
 package me.oskar3123.staffchat.bungee.event;
 
+import java.util.Objects;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Cancellable;
 import net.md_5.bungee.api.plugin.Event;
+import org.jetbrains.annotations.NotNull;
 
-public class BungeeStaffChatEvent extends Event implements Cancellable
-{
+public class BungeeStaffChatEvent extends Event implements Cancellable {
 
-    private final ProxiedPlayer player;
-    private boolean cancelled = false;
-    private String format;
-    private String message;
+  private final ProxiedPlayer player;
 
-    public BungeeStaffChatEvent(ProxiedPlayer player, String format, String message)
-    {
-        this.player = player;
-        this.format = format;
-        this.message = message;
-    }
+  private boolean cancelled = false;
+  private String format;
+  private String message;
 
-    public String getFormat()
-    {
-        return format;
-    }
+  public BungeeStaffChatEvent(
+      @NotNull ProxiedPlayer player, @NotNull String format, @NotNull String message) {
+    this.player = player;
+    this.format = format;
+    this.message = message;
+  }
 
-    public void setFormat(String format)
-    {
-        this.format = format;
-    }
+  public @NotNull String getFormat() {
+    return format;
+  }
 
-    public String getMessage()
-    {
-        return message;
-    }
+  public void setFormat(@NotNull String format) {
+    this.format = Objects.requireNonNull(format);
+  }
 
-    public void setMessage(String message)
-    {
-        this.message = message;
-    }
+  public @NotNull String getMessage() {
+    return message;
+  }
 
-    public ProxiedPlayer getPlayer()
-    {
-        return player;
-    }
+  public void setMessage(@NotNull String message) {
+    this.message = Objects.requireNonNull(message);
+  }
 
-    @Override
-    public boolean isCancelled()
-    {
-        return cancelled;
-    }
+  public @NotNull ProxiedPlayer getPlayer() {
+    return player;
+  }
 
-    @Override
-    public void setCancelled(boolean cancelled)
-    {
-        this.cancelled = cancelled;
-    }
+  @Override
+  public boolean isCancelled() {
+    return cancelled;
+  }
 
+  @Override
+  public void setCancelled(boolean cancelled) {
+    this.cancelled = cancelled;
+  }
 }
