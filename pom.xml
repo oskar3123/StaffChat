@@ -8,7 +8,7 @@
   <name>StaffChat</name>
   <groupId>me.oskar3123</groupId>
   <artifactId>staffchat</artifactId>
-  <version>SNAPSHOT</version>
+  <version>1.4.1</version>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
