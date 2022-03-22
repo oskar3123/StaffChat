@@ -86,7 +86,7 @@ public class StaffChatCommand implements CommandExecutor {
       playerOnly(sender);
       return;
     }
-    boolean toggled = plugin.chatListener.togglePlayer(((Player) sender).getUniqueId());
+    boolean toggled = plugin.staffChatHandler.togglePlayer(((Player) sender).getUniqueId());
     String state =
         toggled ? config.getString("messages.onstring") : config.getString("messages.offstring");
     sender.sendMessage(

@@ -1,12 +1,17 @@
 package me.oskar3123.staffchat.spigot;
 
+import github.scarsz.discordsrv.DiscordSRV;
 import java.util.Optional;
 import me.clip.placeholderapi.PlaceholderAPI;
 import me.oskar3123.staffchat.spigot.command.StaffChatCommand;
+import me.oskar3123.staffchat.spigot.handler.StaffChatHandler;
 import me.oskar3123.staffchat.spigot.listener.ChatListener;
+import me.oskar3123.staffchat.spigot.listener.DiscordSrvListener;
+import me.oskar3123.staffchat.spigot.listener.StaffChatPml;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 public class Main extends JavaPlugin {
 
@@ -14,15 +19,20 @@ public class Main extends JavaPlugin {
   public final String seePerm = "staffchat.see";
   public final String commandPerm = "staffchat.command";
   public final String reloadPerm = "staffchat.reload";
-  public final ChatListener chatListener = new ChatListener(this);
+  public final StaffChatHandler staffChatHandler = new StaffChatHandler(this);
+  public final ChatListener chatListener = new ChatListener(staffChatHandler);
+  public final StaffChatPml staffChatPml = new StaffChatPml(staffChatHandler);
 
   public void onEnable() {
     getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
-    getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", chatListener);
+    getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", staffChatPml);
     new MetricsLite(this);
     saveDefaultConfig();
     registerCommands();
     registerEvents();
+    if (Bukkit.getPluginManager().isPluginEnabled("DiscordSRV")) {
+      DiscordSRV.api.subscribe(new DiscordSrvListener(this));
+    }
   }
 
   @Override
@@ -45,7 +55,7 @@ public class Main extends JavaPlugin {
     return Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI");
   }
 
-  public String replacePlaceholders(Player player, String string) {
+  public @NotNull String replacePlaceholders(Player player, String string) {
     if (!isPlaceholderApiEnabled()) {
       return string;
     }
