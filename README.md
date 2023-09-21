@@ -1,4 +1,3 @@
-[![Travis-CI](https://img.shields.io/travis/com/oskar3123/StaffChat.svg?style=flat)](https://app.travis-ci.com/github/oskar3123/StaffChat)
 [![Downloads](https://img.shields.io/github/downloads/oskar3123/StaffChat/total.svg?style=flat)](https://github.com/oskar3123/StaffChat/releases/latest)
 
 [![Latest Release](https://img.shields.io/github/v/release/oskar3123/StaffChat.svg?style=flat)](https://github.com/oskar3123/StaffChat/releases/latest)
