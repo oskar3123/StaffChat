@@ -15,7 +15,32 @@
 Simple and highly configurable staffchat
 
 ## Download
+
 You can download the plugin from the [Spigot resource page](https://www.spigotmc.org/resources/37804/) or via the [GitHub releases](https://github.com/oskar3123/StaffChat/releases)
+
+## License
+
+This plugin is licensed with the MIT License, for more information see the [LICENSE file](https://github.com/oskar3123/StaffChat/blob/master/LICENSE)
+
+## Building
+
+To build this yourself just clone the repository and run `build` with the Gradle Wrapper
+
+### Windows
+
+```bat
+git clone git@github.com:oskar3123/StaffChat.git
+cd StaffChat
+gradlew.bat build
+```
+
+### *nix (Linux, FreeBSD, macOS, ...)
+
+```bash
+git clone git@github.com:oskar3123/StaffChat.git
+cd StaffChat
+./gradlew build
+```
 
 ## Event API (For developers)
 
