@@ -1,6 +1,7 @@
 package me.oskar3123.staffchat.spigot.command;
 
 import java.util.Objects;
+import me.oskar3123.staffchat.common.permission.Permission;
 import me.oskar3123.staffchat.spigot.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -29,7 +30,7 @@ public class StaffChatCommand implements CommandExecutor {
       @NotNull String[] args) {
     String noPerm =
         clr(config.getString("messages.prefix") + config.getString("messages.nopermission"));
-    if (!sender.hasPermission(plugin.commandPerm)) {
+    if (!sender.hasPermission(Permission.COMMAND.getPermission())) {
       sender.sendMessage(noPerm);
       return true;
     }
@@ -38,14 +39,14 @@ public class StaffChatCommand implements CommandExecutor {
       return true;
     }
     if (args[0].equalsIgnoreCase("reload")) {
-      if (sender.hasPermission(plugin.reloadPerm)) {
+      if (sender.hasPermission(Permission.RELOAD.getPermission())) {
         reload(sender);
       } else {
         sender.sendMessage(noPerm);
       }
       return true;
     } else if (args[0].equalsIgnoreCase("toggle")) {
-      if (sender.hasPermission(plugin.usePerm)) {
+      if (sender.hasPermission(Permission.USE.getPermission())) {
         toggle(sender);
       } else {
         sender.sendMessage(noPerm);
@@ -65,11 +66,11 @@ public class StaffChatCommand implements CommandExecutor {
     String prefix = clr(Objects.requireNonNull(config.getString("messages.prefix", "")));
     sender.sendMessage(
         prefix + "Version " + plugin.getDescription().getVersion() + ", made by oskar3123");
-    if (sender.hasPermission(plugin.usePerm)) {
+    if (sender.hasPermission(Permission.USE.getPermission())) {
       sender.sendMessage(prefix + "Message prefix: " + config.getString("settings.character"));
       sender.sendMessage(prefix + "/" + label + " toggle - Toggles auto staffchat");
     }
-    if (sender.hasPermission(plugin.reloadPerm)) {
+    if (sender.hasPermission(Permission.RELOAD.getPermission())) {
       sender.sendMessage(prefix + "/" + label + " reload - Reloads the config file");
     }
   }

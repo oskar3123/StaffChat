@@ -2,8 +2,8 @@ package me.oskar3123.staffchat.bungee.util;
 
 import java.util.function.Function;
 import java.util.function.Supplier;
-import me.oskar3123.staffchat.util.FormatUtils;
-import me.oskar3123.staffchat.util.StringUtils;
+import me.oskar3123.staffchat.common.util.FormatUtils;
+import me.oskar3123.staffchat.common.util.StringUtils;
 
 public class BungeeFormatUtils {
 

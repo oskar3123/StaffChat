@@ -16,9 +16,10 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.function.Supplier;
 import java.util.logging.Level;
+import me.oskar3123.staffchat.common.permission.Permission;
 import me.oskar3123.staffchat.spigot.Main;
 import me.oskar3123.staffchat.spigot.event.StaffChatEvent;
-import me.oskar3123.staffchat.util.FormatUtils;
+import me.oskar3123.staffchat.common.util.FormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -36,7 +37,7 @@ public class StaffChatHandler {
   }
 
   public void onChatEvent(@NotNull AsyncPlayerChatEvent event) {
-    if (!event.getPlayer().hasPermission(plugin.usePerm)) {
+    if (!event.getPlayer().hasPermission(Permission.USE.getPermission())) {
       return;
     }
 
@@ -133,7 +134,7 @@ public class StaffChatHandler {
 
   private void sendStaffChatMessage(@NotNull String message) {
     Bukkit.getOnlinePlayers().stream()
-        .filter(p -> p.hasPermission(plugin.seePerm))
+        .filter(p -> p.hasPermission(Permission.SEE.getPermission()))
         .forEach(p -> p.sendMessage(message));
     plugin.getLogger().info(ChatColor.stripColor(message));
   }

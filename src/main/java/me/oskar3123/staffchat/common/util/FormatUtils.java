@@ -1,4 +1,4 @@
-package me.oskar3123.staffchat.util;
+package me.oskar3123.staffchat.common.util;
 
 import java.util.function.Function;
 import java.util.function.Supplier;
