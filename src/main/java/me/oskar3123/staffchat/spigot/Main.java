@@ -8,12 +8,15 @@ import me.oskar3123.staffchat.spigot.handler.StaffChatHandler;
 import me.oskar3123.staffchat.spigot.listener.ChatListener;
 import me.oskar3123.staffchat.spigot.listener.DiscordSrvListener;
 import me.oskar3123.staffchat.spigot.listener.StaffChatPml;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 public class Main extends JavaPlugin {
+
+  private static final int BSTATS_PLUGIN_ID = 835;
 
   public final String usePerm = "staffchat.use";
   public final String seePerm = "staffchat.see";
@@ -26,7 +29,7 @@ public class Main extends JavaPlugin {
   public void onEnable() {
     getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
     getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", staffChatPml);
-    new MetricsLite(this);
+    new Metrics(this, BSTATS_PLUGIN_ID);
     saveDefaultConfig();
     registerCommands();
     registerEvents();
