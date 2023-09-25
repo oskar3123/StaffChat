@@ -7,6 +7,8 @@ import me.oskar3123.staffchat.util.StringUtils;
 
 public class BungeeFormatUtils {
 
+  private BungeeFormatUtils() {}
+
   public static String replacePlaceholders(
       String string,
       Function<String, String> colorize,
