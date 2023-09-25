@@ -4,6 +4,7 @@ main: me.oskar3123.staffchat.spigot.Main
 api-version: 1.13
 version: SNAPSHOT
 softdepend: [ PlaceholderAPI, DiscordSRV ]
+folia-supported: true
 commands:
   staffchat:
     usage: /<command>
