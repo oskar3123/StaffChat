@@ -24,14 +24,14 @@ This plugin is licensed with the MIT License, for more information see the [LICE
 
 ## Building
 
-To build this yourself just clone the repository and run `build` with the Gradle Wrapper
+To build this yourself just clone the repository and run the `shadowJar` task with the Gradle Wrapper
 
 ### Windows
 
 ```bat
 git clone git@github.com:oskar3123/StaffChat.git
 cd StaffChat
-gradlew.bat build
+gradlew.bat shadowJar
 ```
 
 ### *nix (Linux, FreeBSD, macOS, ...)
@@ -39,7 +39,7 @@ gradlew.bat build
 ```bash
 git clone git@github.com:oskar3123/StaffChat.git
 cd StaffChat
-./gradlew build
+./gradlew shadowJar
 ```
 
 ## Event API (For developers)

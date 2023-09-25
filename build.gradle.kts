@@ -1,4 +1,5 @@
 plugins {
+    id("com.github.johnrengelman.shadow").version("8.1.1")
     id("java")
 }
 
@@ -37,8 +38,15 @@ dependencies {
     compileOnly("me.clip:placeholderapi:2.11.1")
     compileOnly("com.discordsrv:discordsrv:1.25.1")
 
+    implementation("org.bstats:bstats-bukkit:3.0.2")
+    implementation("org.bstats:bstats-bungeecord:3.0.2")
+
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
+}
+
+tasks.shadowJar {
+    relocate("org.bstats", "me.oskar3123.staffchat.bstats")
 }
 
 tasks.test {

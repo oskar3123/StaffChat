@@ -10,8 +10,11 @@ import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
 import net.md_5.bungee.config.YamlConfiguration;
+import org.bstats.bungeecord.Metrics;
 
 public class BungeeMain extends Plugin {
+
+  private static final int BSTATS_PLUGIN_ID = 836;
 
   public final String usePerm = "staffchat.use";
   public final String seePerm = "staffchat.see";
@@ -21,7 +24,7 @@ public class BungeeMain extends Plugin {
   private Configuration config;
 
   public void onEnable() {
-    new MetricsLite(this);
+    new Metrics(this, BSTATS_PLUGIN_ID);
     saveDefaultConfig();
     if (!reloadConfig()) {
       getLogger().severe("Could not load config file, using defaults.");
