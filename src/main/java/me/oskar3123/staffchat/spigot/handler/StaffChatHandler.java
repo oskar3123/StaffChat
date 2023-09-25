@@ -106,8 +106,7 @@ public class StaffChatHandler {
     try {
       actualMessage = msgin.readUTF();
     } catch (IOException e) {
-      e.printStackTrace();
-      plugin.getLogger().severe("Failed to read plugin message from bungeecord");
+      plugin.getLogger().log(Level.SEVERE, "Failed to read plugin message from bungeecord", e);
       return;
     }
     sendStaffChatMessage(actualMessage);
@@ -123,8 +122,7 @@ public class StaffChatHandler {
     try {
       dataStream.writeUTF(message);
     } catch (IOException e) {
-      e.printStackTrace();
-      plugin.getLogger().severe("Failed to send plugin message to bungeecord");
+      plugin.getLogger().log(Level.SEVERE, "Failed to send plugin message to bungeecord", e);
       return;
     }
     byte[] data = byteStream.toByteArray();
