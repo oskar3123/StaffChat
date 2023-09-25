@@ -8,7 +8,7 @@ import github.scarsz.discordsrv.dependencies.jda.api.entities.Message;
 import github.scarsz.discordsrv.dependencies.jda.api.entities.User;
 import java.util.Optional;
 import me.oskar3123.staffchat.spigot.Main;
-import org.bukkit.Bukkit;
+import me.oskar3123.staffchat.spigot.util.FoliaUtils;
 import org.bukkit.configuration.Configuration;
 
 public class DiscordSrvListener {
@@ -38,16 +38,15 @@ public class DiscordSrvListener {
                   Optional.ofNullable(event.getMessage())
                       .map(Message::getContentDisplay)
                       .orElse("");
-              Bukkit.getScheduler()
-                  .runTask(
-                      plugin,
-                      () ->
-                          plugin.staffChatHandler.sendStaffChatMessage(
-                              plugin
-                                  .getConfig()
-                                  .getString("discordsrv.discord-to-minecraft-format", ""),
-                              () -> name,
-                              message));
+              FoliaUtils.execute(
+                  plugin,
+                  () ->
+                      plugin.staffChatHandler.sendStaffChatMessage(
+                          plugin
+                              .getConfig()
+                              .getString("discordsrv.discord-to-minecraft-format", ""),
+                          () -> name,
+                          message));
             });
   }
 
