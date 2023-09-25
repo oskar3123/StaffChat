@@ -91,12 +91,7 @@ public class BungeeStaffChatCommand extends Command {
   }
 
   @Contract("_ -> new")
-  private @NotNull String clr(@NotNull String string) {
-    return ChatColor.translateAlternateColorCodes('&', string);
-  }
-
-  @Contract("_ -> new")
   private @NotNull BaseComponent[] txt(@NotNull String text) {
-    return TextComponent.fromLegacyText(clr(text));
+    return TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&', text));
   }
 }
