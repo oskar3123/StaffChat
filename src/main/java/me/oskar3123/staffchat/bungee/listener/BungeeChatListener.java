@@ -2,15 +2,18 @@ package me.oskar3123.staffchat.bungee.listener;
 
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import me.oskar3123.staffchat.bungee.BungeeMain;
 import me.oskar3123.staffchat.bungee.event.BungeeStaffChatEvent;
-import me.oskar3123.staffchat.util.StringUtils;
+import me.oskar3123.staffchat.bungee.util.BungeeFormatUtils;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
+import net.md_5.bungee.api.connection.Server;
 import net.md_5.bungee.api.event.ChatEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.config.Configuration;
@@ -59,26 +62,30 @@ public class BungeeChatListener implements Listener {
     format = chatEvent.getFormat();
     message = chatEvent.getMessage();
 
-    format = format.replaceAll("\\{NAME}", StringUtils.sanitize(player.getName()));
-    format = format.replaceAll("\\{MESSAGE}", StringUtils.sanitize(message));
-    final BaseComponent[] messageComponents = txt(format);
+    String appliedFormat =
+        BungeeFormatUtils.replacePlaceholders(
+            format,
+            s -> ChatColor.translateAlternateColorCodes('&', s),
+            () ->
+                Optional.ofNullable(player.getServer())
+                    .map(Server::getInfo)
+                    .map(ServerInfo::getName)
+                    .orElse(""),
+            player::getName,
+            message);
+    final BaseComponent[] messageComponents = txt(appliedFormat);
 
     plugin.getProxy().getPlayers().stream()
         .filter(p -> p.hasPermission(plugin.seePerm))
         .forEach(p -> p.sendMessage(messageComponents));
-    plugin.getLogger().info(ChatColor.stripColor(clr(format)));
+    plugin.getLogger().info(ChatColor.stripColor(appliedFormat));
 
     event.setCancelled(true);
   }
 
   @Contract("_ -> new")
-  private @NotNull String clr(@NotNull String string) {
-    return ChatColor.translateAlternateColorCodes('&', string);
-  }
-
-  @Contract("_ -> new")
   private @NotNull BaseComponent[] txt(@NotNull String text) {
-    return TextComponent.fromLegacyText(clr(text));
+    return TextComponent.fromLegacyText(text);
   }
 
   public boolean togglePlayer(@NotNull UUID player) {

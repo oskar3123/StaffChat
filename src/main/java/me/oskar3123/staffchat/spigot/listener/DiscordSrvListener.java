@@ -46,7 +46,7 @@ public class DiscordSrvListener {
                               plugin
                                   .getConfig()
                                   .getString("discordsrv.discord-to-minecraft-format", ""),
-                              name,
+                              () -> name,
                               message));
             });
   }

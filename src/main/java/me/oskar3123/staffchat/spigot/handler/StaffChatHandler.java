@@ -14,9 +14,11 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
+import java.util.function.Supplier;
+import java.util.logging.Level;
 import me.oskar3123.staffchat.spigot.Main;
 import me.oskar3123.staffchat.spigot.event.StaffChatEvent;
-import me.oskar3123.staffchat.util.StringUtils;
+import me.oskar3123.staffchat.util.FormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -62,7 +64,7 @@ public class StaffChatHandler {
 
     format = plugin.replacePlaceholders(event.getPlayer(), format);
 
-    sendStaffChatMessage(format, event.getPlayer().getName(), message);
+    sendStaffChatMessage(format, event.getPlayer()::getName, message);
 
     if (plugin.getConfig().getBoolean("discordsrv.enable")) {
       sendDiscordMessage(event.getPlayer(), message);
@@ -71,11 +73,10 @@ public class StaffChatHandler {
     event.setCancelled(true);
   }
 
-  public void sendStaffChatMessage(String format, String name, String message) {
-    format = format.replaceAll("\\{NAME}", StringUtils.sanitize(name));
-    format = ChatColor.translateAlternateColorCodes('&', format);
-    format = format.replaceAll("\\{MESSAGE}", StringUtils.sanitize(message));
-    final String finalMessage = format;
+  public void sendStaffChatMessage(String format, Supplier<String> nameSupplier, String message) {
+    final String finalMessage =
+        FormatUtils.replacePlaceholders(
+            format, s -> ChatColor.translateAlternateColorCodes('&', s), nameSupplier, message);
 
     if (plugin.getConfig().getBoolean("settings.sendmessagestoallservers")) {
       // Find any player and send using that object
@@ -142,12 +143,14 @@ public class StaffChatHandler {
   private void sendDiscordMessage(Player player, String message) {
     if (Bukkit.getPluginManager().isPluginEnabled("DiscordSRV")) {
       String format =
-          plugin
-              .replacePlaceholders(
-                  player,
-                  plugin.getConfig().getString("discordsrv.minecraft-to-discord-format", ""))
-              .replaceAll("\\{NAME}", StringUtils.sanitize(player.getName()))
-              .replaceAll("\\{MESSAGE}", StringUtils.sanitize(message));
+          plugin.replacePlaceholders(
+              player, plugin.getConfig().getString("discordsrv.minecraft-to-discord-format", ""));
+      format =
+          FormatUtils.replacePlaceholders(
+              format,
+              s -> ChatColor.translateAlternateColorCodes('&', s),
+              player::getName,
+              message);
       DiscordUtil.sendMessage(
           DiscordSRV.getPlugin()
               .getOptionalTextChannel(
