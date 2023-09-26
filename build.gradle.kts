@@ -30,11 +30,17 @@ repositories {
     maven {
         url = uri("https://nexus.scarsz.me/content/groups/public/")
     }
+    maven {
+        url = uri("https://repo.papermc.io/repository/maven-public/")
+    }
 }
 
 dependencies {
     compileOnly("org.spigotmc:spigot-api:1.20.2-R0.1-SNAPSHOT")
     compileOnly("net.md-5:bungeecord-api:1.20-R0.2-SNAPSHOT")
+    compileOnly("com.velocitypowered:velocity-api:3.1.2-SNAPSHOT")
+    annotationProcessor("com.velocitypowered:velocity-api:3.1.2-SNAPSHOT")
+
     compileOnly("me.clip:placeholderapi:2.11.1")
     compileOnly("com.discordsrv:discordsrv:1.25.1")
 
