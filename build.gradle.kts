@@ -6,9 +6,36 @@ plugins {
 group = "me.oskar3123"
 version = "SNAPSHOT"
 
+// Main sourceSet remains on Java 8
 java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(8))
+    }
+}
+
+// Create a sourceSet for Velocity code that uses Java 17
+sourceSets {
+    create("velocity") {
+        java {
+            srcDir("src/velocity/java")
+            compileClasspath += sourceSets.main.get().output + sourceSets.main.get().compileClasspath
+            runtimeClasspath += sourceSets.main.get().output + sourceSets.main.get().runtimeClasspath
+        }
+    }
+}
+
+// Configure the automatically created Velocity compilation task to use Java 17
+tasks.named<JavaCompile>("compileVelocityJava") {
+    java {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(17))
+        }
     }
 }
 
@@ -47,6 +74,8 @@ dependencies {
 
 tasks.shadowJar {
     relocate("org.bstats", "me.oskar3123.staffchat.bstats")
+    dependsOn("compileVelocityJava")
+    from(sourceSets["velocity"].output)
 }
 
 tasks.test {
