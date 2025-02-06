@@ -57,6 +57,10 @@ repositories {
     maven {
         url = uri("https://nexus.scarsz.me/content/groups/public/")
     }
+    maven {
+        name = "papermc"
+        url = uri("https://repo.papermc.io/repository/maven-public/")
+    }
 }
 
 dependencies {
@@ -64,9 +68,12 @@ dependencies {
     compileOnly("net.md-5:bungeecord-api:1.20-R0.2-SNAPSHOT")
     compileOnly("me.clip:placeholderapi:2.11.1")
     compileOnly("com.discordsrv:discordsrv:1.25.1")
+    "velocityCompileOnly"("com.velocitypowered:velocity-api:3.3.0-SNAPSHOT")
+    "velocityAnnotationProcessor"("com.velocitypowered:velocity-api:3.3.0-SNAPSHOT")
 
     implementation("org.bstats:bstats-bukkit:3.0.2")
     implementation("org.bstats:bstats-bungeecord:3.0.2")
+    implementation("org.bstats:bstats-velocity:3.0.2")
 
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
