@@ -8,6 +8,7 @@ messages:
   nopermission: '&cYou don''t have permission to do that'
   playeronly: '&cPlayer only command'
   reloaded: 'Reloaded the config file'
+  reload-failed: '&cFailed to reload the config file'
   toggled: 'You toggled auto staffchat %s'
   onstring: 'on'
   offstring: 'off'
