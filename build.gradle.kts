@@ -12,7 +12,7 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(8))
+        languageVersion.set(JavaLanguageVersion.of(17))
     }
 }
 
@@ -29,14 +29,8 @@ sourceSets {
 
 // Configure the automatically created Velocity compilation task to use Java 17
 tasks.named<JavaCompile>("compileVelocityJava") {
-    java {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-
-        toolchain {
-            languageVersion.set(JavaLanguageVersion.of(17))
-        }
-    }
+    sourceCompatibility = "17"
+    targetCompatibility = "17"
 }
 
 repositories {
