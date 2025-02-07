@@ -3,13 +3,11 @@ package me.oskar3123.staffchat.spigot;
 import github.scarsz.discordsrv.DiscordSRV;
 import java.util.Optional;
 import me.clip.placeholderapi.PlaceholderAPI;
-import me.oskar3123.staffchat.bstats.folia.MetricsFolia;
 import me.oskar3123.staffchat.spigot.command.StaffChatCommand;
 import me.oskar3123.staffchat.spigot.handler.StaffChatHandler;
 import me.oskar3123.staffchat.spigot.listener.ChatListener;
 import me.oskar3123.staffchat.spigot.listener.DiscordSrvListener;
 import me.oskar3123.staffchat.spigot.listener.StaffChatPml;
-import me.oskar3123.staffchat.spigot.util.FoliaUtils;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -31,11 +29,7 @@ public class Main extends JavaPlugin {
   public void onEnable() {
     getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
     getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", staffChatPml);
-    if (FoliaUtils.isFolia()) {
-      new MetricsFolia(this, BSTATS_PLUGIN_ID);
-    } else {
-      new Metrics(this, BSTATS_PLUGIN_ID);
-    }
+    new Metrics(this, BSTATS_PLUGIN_ID);
     saveDefaultConfig();
     registerCommands();
     registerEvents();
