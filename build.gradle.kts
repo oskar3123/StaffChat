@@ -71,9 +71,9 @@ dependencies {
     "velocityCompileOnly"("com.velocitypowered:velocity-api:3.3.0-SNAPSHOT")
     "velocityAnnotationProcessor"("com.velocitypowered:velocity-api:3.3.0-SNAPSHOT")
 
-    implementation("org.bstats:bstats-bukkit:3.0.2")
-    implementation("org.bstats:bstats-bungeecord:3.0.2")
-    implementation("org.bstats:bstats-velocity:3.0.2")
+    implementation("org.bstats:bstats-bukkit:3.1.0")
+    implementation("org.bstats:bstats-bungeecord:3.1.0")
+    implementation("org.bstats:bstats-velocity:3.1.0")
 
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
