@@ -13,8 +13,6 @@ import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 
 public class VelocityStaffChatHandler {
 
-  private static final String DEFAULT_FORMAT = "&b{NAME}: {MESSAGE}";
-
   private final VelocityStaffChat plugin;
   private final Set<UUID> toggledPlayers;
 
@@ -38,13 +36,10 @@ public class VelocityStaffChatHandler {
   }
 
   public void broadcastStaffMessage(Player sender, String message) {
-    if (message.isEmpty()) {
-      return;
-    }
+    String format = plugin.getConfig().node("settings", "format").getString("&b{NAME}: {MESSAGE}");
 
     String formattedMessage =
-        FormatUtils.replacePlaceholders(
-            DEFAULT_FORMAT, Function.identity(), sender::getUsername, message);
+        FormatUtils.replacePlaceholders(format, Function.identity(), sender::getUsername, message);
 
     TextComponent component =
         LegacyComponentSerializer.legacyAmpersand().deserialize(formattedMessage);
