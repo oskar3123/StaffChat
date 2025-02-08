@@ -4,6 +4,7 @@ import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.command.SimpleCommand;
 import com.velocitypowered.api.proxy.Player;
 import java.io.IOException;
+import me.oskar3123.staffchat.util.Permissions;
 import me.oskar3123.staffchat.velocity.VelocityStaffChat;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
@@ -30,7 +31,7 @@ public class VelocityStaffChatCommand implements SimpleCommand {
         txt(
             config.node("messages", "prefix").getString()
                 + config.node("messages", "nopermission").getString());
-    if (!sender.hasPermission("staffchat.command")) {
+    if (!sender.hasPermission(Permissions.COMMAND.permission())) {
       sender.sendMessage(noPerm);
       return;
     }
@@ -39,14 +40,14 @@ public class VelocityStaffChatCommand implements SimpleCommand {
       return;
     }
     if (args[0].equalsIgnoreCase("reload")) {
-      if (sender.hasPermission("staffchat.reload")) {
+      if (sender.hasPermission(Permissions.RELOAD.permission())) {
         reload(sender);
       } else {
         sender.sendMessage(noPerm);
       }
       return;
     } else if (args[0].equalsIgnoreCase("toggle")) {
-      if (sender.hasPermission("staffchat.use")) {
+      if (sender.hasPermission(Permissions.USE.permission())) {
         toggle(sender);
       } else {
         sender.sendMessage(noPerm);
@@ -58,7 +59,7 @@ public class VelocityStaffChatCommand implements SimpleCommand {
 
   @Override
   public boolean hasPermission(Invocation invocation) {
-    return invocation.source().hasPermission("staffchat.command");
+    return invocation.source().hasPermission(Permissions.COMMAND.permission());
   }
 
   private void playerOnly(@NotNull CommandSource sender) {
@@ -72,12 +73,12 @@ public class VelocityStaffChatCommand implements SimpleCommand {
     String prefix = config.node("messages", "prefix").getString();
     sender.sendMessage(
         txt(prefix + "Version " + VelocityStaffChat.PLUGIN_VERSION + ", made by oskar3123"));
-    if (sender.hasPermission("staffchat.use")) {
+    if (sender.hasPermission(Permissions.USE.permission())) {
       sender.sendMessage(
           txt(prefix + "Message prefix: " + config.node("settings", "character").getString()));
       sender.sendMessage(txt(prefix + "/" + label + " toggle - Toggles auto staffchat"));
     }
-    if (sender.hasPermission("staffchat.reload")) {
+    if (sender.hasPermission(Permissions.RELOAD.permission())) {
       sender.sendMessage(txt(prefix + "/" + label + " reload - Reloads the config file"));
     }
   }

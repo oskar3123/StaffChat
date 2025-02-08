@@ -8,6 +8,7 @@ import java.util.UUID;
 import me.oskar3123.staffchat.bungee.BungeeMain;
 import me.oskar3123.staffchat.bungee.event.BungeeStaffChatEvent;
 import me.oskar3123.staffchat.bungee.util.BungeeFormatUtils;
+import me.oskar3123.staffchat.util.Permissions;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -40,7 +41,7 @@ public class BungeeChatListener implements Listener {
     }
 
     ProxiedPlayer player = (ProxiedPlayer) event.getSender();
-    if (!player.hasPermission(plugin.usePerm)) {
+    if (!player.hasPermission(Permissions.USE.permission())) {
       return;
     }
 
@@ -76,7 +77,7 @@ public class BungeeChatListener implements Listener {
     final BaseComponent[] messageComponents = txt(appliedFormat);
 
     plugin.getProxy().getPlayers().stream()
-        .filter(p -> p.hasPermission(plugin.seePerm))
+        .filter(p -> p.hasPermission(Permissions.SEE.permission()))
         .forEach(p -> p.sendMessage(messageComponents));
     plugin.getLogger().info(ChatColor.stripColor(appliedFormat));
 

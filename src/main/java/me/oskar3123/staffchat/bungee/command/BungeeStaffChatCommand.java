@@ -1,6 +1,7 @@
 package me.oskar3123.staffchat.bungee.command;
 
 import me.oskar3123.staffchat.bungee.BungeeMain;
+import me.oskar3123.staffchat.util.Permissions;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.BaseComponent;
@@ -25,7 +26,7 @@ public class BungeeStaffChatCommand extends Command {
   public void execute(@NotNull CommandSender sender, @NotNull String[] args) {
     BaseComponent[] noPerm =
         txt(config.getString("messages.prefix") + config.getString("messages.nopermission"));
-    if (!sender.hasPermission(plugin.commandPerm)) {
+    if (!sender.hasPermission(Permissions.COMMAND.permission())) {
       sender.sendMessage(noPerm);
       return;
     }
@@ -34,14 +35,14 @@ public class BungeeStaffChatCommand extends Command {
       return;
     }
     if (args[0].equalsIgnoreCase("reload")) {
-      if (sender.hasPermission(plugin.reloadPerm)) {
+      if (sender.hasPermission(Permissions.RELOAD.permission())) {
         reload(sender);
       } else {
         sender.sendMessage(noPerm);
       }
       return;
     } else if (args[0].equalsIgnoreCase("toggle")) {
-      if (sender.hasPermission(plugin.usePerm)) {
+      if (sender.hasPermission(Permissions.USE.permission())) {
         toggle(sender);
       } else {
         sender.sendMessage(noPerm);
@@ -60,11 +61,11 @@ public class BungeeStaffChatCommand extends Command {
     String prefix = config.getString("messages.prefix");
     sender.sendMessage(
         txt(prefix + "Version " + plugin.getDescription().getVersion() + ", made by oskar3123"));
-    if (sender.hasPermission(plugin.usePerm)) {
+    if (sender.hasPermission(Permissions.USE.permission())) {
       sender.sendMessage(txt(prefix + "Message prefix: " + config.getString("settings.character")));
       sender.sendMessage(txt(prefix + "/" + label + " toggle - Toggles auto staffchat"));
     }
-    if (sender.hasPermission(plugin.reloadPerm)) {
+    if (sender.hasPermission(Permissions.RELOAD.permission())) {
       sender.sendMessage(txt(prefix + "/" + label + " reload - Reloads the config file"));
     }
   }

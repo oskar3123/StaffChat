@@ -16,10 +16,6 @@ public class BungeeMain extends Plugin {
 
   private static final int BSTATS_PLUGIN_ID = 836;
 
-  public final String usePerm = "staffchat.use";
-  public final String seePerm = "staffchat.see";
-  public final String commandPerm = "staffchat.command";
-  public final String reloadPerm = "staffchat.reload";
   public final BungeeChatListener chatListener = new BungeeChatListener(this);
   private Configuration config;
 
