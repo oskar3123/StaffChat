@@ -30,6 +30,8 @@ the [LICENSE file](https://github.com/oskar3123/StaffChat/blob/master/LICENSE).
 To build this yourself just clone the repository and run the `shadowJar` task with the Gradle
 Wrapper.
 
+The plugin jar-file can be found inside the `build/libs` folder after building.
+
 ### Windows
 
 ```bat
