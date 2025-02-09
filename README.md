@@ -93,3 +93,45 @@ Register the listener with
 getProxy().getPluginManager().registerListener(this, new StaffChatListener());
 ```
 in your plugin onEnable.
+
+### Velocity
+
+```java
+public class StaffChatListener {
+
+  @Subscribe
+  public void onStaffChat(VelocityStaffChatEvent event) {
+    // Player player = event.getPlayer();
+    // String format = event.getFormat();
+    // String message = event.getMessage();
+    // StaffChatResult result = StaffChatResult.denied();
+    // StaffChatResult result = StaffChatResult.format("&b{NAME} >> {MESSAGE}");
+    // StaffChatResult result = StaffChatResult.message(filterMessage(message));
+    // StaffChatResult result = StaffChatResult.formatAndMessage("&b{NAME} >> {MESSAGE}", filterMessage(message));
+    // event.setResult(result);
+  }
+
+  private static String filterMessage(String message) {
+    // ...
+    return message;
+  }
+}
+```
+Register the listener on the `ProxyInitializeEvent` in your plugin.
+```java
+@Plugin
+public class Plugin {
+
+  private final ProxyServer server;
+
+  @Inject
+  public Plugin(ProxyServer server) {
+    this.server = server;
+  }
+
+  @Subscribe
+  public void onProxyInitialization(ProxyInitializeEvent event) {
+    server.getEventManager().register(this, new StaffChatListener());
+  }
+}
+```
