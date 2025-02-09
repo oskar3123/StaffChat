@@ -60,22 +60,32 @@ public class StaffChatListener implements Listener {
 
   @EventHandler
   public void onStaffChat(StaffChatEvent event) {
-    // String format = event.getFormat();
-    // event.setFormat("&b{NAME} >> {MESSAGE}");
-    // String message = event.getMessage();
     // Player player = event.getPlayer();
+    // String format = event.getFormat();
+    // String message = event.getMessage();
+    // event.setFormat("&b{NAME} >> {MESSAGE}");
+    // event.setMessage(filterMessage(message));
     // event.setCancelled(true);
+  }
+
+  private static String filterMessage(String message) {
+    // ...
+    return message;
   }
 }
 ```
 
-Register the listener with
+Register the listener in the `onEnable` method of your plugin.
 
 ```java
-getServer().getPluginManager().registerEvents(new StaffChatListener(), this);
-```
+public class YourPlugin extends JavaPlugin {
 
-in your plugin onEnable.
+  @Override
+  public void onEnable() {
+    getServer().getPluginManager().registerEvents(new StaffChatListener(), this);
+  }
+}
+```
 
 ### BungeeCord
 
@@ -84,22 +94,32 @@ public class StaffChatListener implements Listener {
 
   @EventHandler
   public void onStaffChat(BungeeStaffChatEvent event) {
+    // ProxiedPlayer player = event.getPlayer();
     // String format = event.getFormat();
-    // event.setFormat("&b{NAME} >> {MESSAGE}");
     // String message = event.getMessage();
-    // Player player = event.getPlayer();
+    // event.setFormat("&b{NAME} >> {MESSAGE}");
+    // event.setMessage(filterMessage(message));
     // event.setCancelled(true);
+  }
+
+  private static String filterMessage(String message) {
+    // ...
+    return message;
   }
 }
 ```
 
-Register the listener with
+Register the listener in the `onEnable` method of your plugin.
 
 ```java
-getProxy().getPluginManager().registerListener(this, new StaffChatListener());
-```
+public class YourPlugin extends Plugin {
 
-in your plugin onEnable.
+  @Override
+  public void onEnable() {
+    getProxy().getPluginManager().registerListener(this, new StaffChatListener());
+  }
+}
+```
 
 ### Velocity
 
@@ -129,12 +149,12 @@ Register the listener on the `ProxyInitializeEvent` in your plugin.
 
 ```java
 @Plugin
-public class Plugin {
+public class YourPlugin {
 
   private final ProxyServer server;
 
   @Inject
-  public Plugin(ProxyServer server) {
+  public YourPlugin(ProxyServer server) {
     this.server = server;
   }
 
