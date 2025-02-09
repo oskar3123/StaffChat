@@ -52,6 +52,8 @@ public class BungeeChatListener implements Listener {
       return;
     }
 
+    event.setCancelled(true);
+
     String format = Objects.requireNonNull(config.getString("settings.format", ""));
     String message = event.getMessage().substring(isToggled ? 0 : character.length()).trim();
 
@@ -80,8 +82,6 @@ public class BungeeChatListener implements Listener {
         .filter(p -> p.hasPermission(Permissions.SEE.permission()))
         .forEach(p -> p.sendMessage(messageComponents));
     plugin.getLogger().info(ChatColor.stripColor(appliedFormat));
-
-    event.setCancelled(true);
   }
 
   @Contract("_ -> new")
