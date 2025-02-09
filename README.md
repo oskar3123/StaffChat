@@ -12,19 +12,25 @@
 
 # [StaffChat](https://oskar3123.github.io/StaffChat)
 
-Simple and highly configurable staffchat
+Simple and highly configurable staff chat.
 
 ## Download
 
-You can download the plugin from the [Spigot resource page](https://www.spigotmc.org/resources/37804/) or via the [GitHub releases](https://github.com/oskar3123/StaffChat/releases)
+You can download the plugin from
+the [Spigot resource page](https://www.spigotmc.org/resources/37804/) or via
+the [GitHub releases](https://github.com/oskar3123/StaffChat/releases).
 
 ## License
 
-This plugin is licensed with the MIT License, for more information see the [LICENSE file](https://github.com/oskar3123/StaffChat/blob/master/LICENSE)
+This plugin is licensed with the MIT License, for more information see
+the [LICENSE file](https://github.com/oskar3123/StaffChat/blob/master/LICENSE).
 
 ## Building
 
-To build this yourself just clone the repository and run the `shadowJar` task with the Gradle Wrapper
+To build this yourself just clone the repository and run the `shadowJar` task with the Gradle
+Wrapper.
+
+The plugin jar-file can be found inside the `build/libs` folder after building.
 
 ### Windows
 
@@ -46,53 +52,74 @@ cd StaffChat
 
 ### Bukkit/Spigot
 
-Because the event API in 1.14+ is now strict between sync and async events you should check whether this was called synchronously or asynchronously by using `event.isAsynchronous()`
+Because the event API in 1.14+ is now strict between sync and async events you should check whether
+this was called synchronously or asynchronously by using `event.isAsynchronous()`.
 
 ```java
-public class StaffChatListener implements Listener
-{
+public class StaffChatListener implements Listener {
 
-    @EventHandler
-    public void onStaffChat(StaffChatEvent event)
-    {
-        // String format = event.getFormat();
-        // event.setFormat("&b{NAME} >> {MESSAGE}");
-        // String message = event.getMessage();
-        // Player player = event.getPlayer();
-        // event.setCancelled(true);
-    }
+  @EventHandler
+  public void onStaffChat(StaffChatEvent event) {
+    // Player player = event.getPlayer();
+    // String format = event.getFormat();
+    // String message = event.getMessage();
+    // event.setFormat("&b{NAME} >> {MESSAGE}");
+    // event.setMessage(filterMessage(message));
+    // event.setCancelled(true);
+  }
 
+  private static String filterMessage(String message) {
+    // ...
+    return message;
+  }
 }
 ```
-Register the listener with
+
+Register the listener in the `onEnable` method of your plugin.
+
 ```java
-getServer().getPluginManager().registerEvents(new StaffChatListener(), this);
+public class YourPlugin extends JavaPlugin {
+
+  @Override
+  public void onEnable() {
+    getServer().getPluginManager().registerEvents(new StaffChatListener(), this);
+  }
+}
 ```
-in your plugin onEnable.
 
 ### BungeeCord
 
 ```java
-public class StaffChatListener implements Listener
-{
+public class StaffChatListener implements Listener {
 
-    @EventHandler
-    public void onStaffChat(BungeeStaffChatEvent event)
-    {
-        // String format = event.getFormat();
-        // event.setFormat("&b{NAME} >> {MESSAGE}");
-        // String message = event.getMessage();
-        // Player player = event.getPlayer();
-        // event.setCancelled(true);
-    }
+  @EventHandler
+  public void onStaffChat(BungeeStaffChatEvent event) {
+    // ProxiedPlayer player = event.getPlayer();
+    // String format = event.getFormat();
+    // String message = event.getMessage();
+    // event.setFormat("&b{NAME} >> {MESSAGE}");
+    // event.setMessage(filterMessage(message));
+    // event.setCancelled(true);
+  }
 
+  private static String filterMessage(String message) {
+    // ...
+    return message;
+  }
 }
 ```
-Register the listener with
+
+Register the listener in the `onEnable` method of your plugin.
+
 ```java
-getProxy().getPluginManager().registerListener(this, new StaffChatListener());
+public class YourPlugin extends Plugin {
+
+  @Override
+  public void onEnable() {
+    getProxy().getPluginManager().registerListener(this, new StaffChatListener());
+  }
+}
 ```
-in your plugin onEnable.
 
 ### Velocity
 
@@ -117,15 +144,17 @@ public class StaffChatListener {
   }
 }
 ```
+
 Register the listener on the `ProxyInitializeEvent` in your plugin.
+
 ```java
 @Plugin
-public class Plugin {
+public class YourPlugin {
 
   private final ProxyServer server;
 
   @Inject
-  public Plugin(ProxyServer server) {
+  public YourPlugin(ProxyServer server) {
     this.server = server;
   }
 
