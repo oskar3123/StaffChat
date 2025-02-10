@@ -48,6 +48,8 @@ public class StaffChatHandler {
       return;
     }
 
+    event.setCancelled(true);
+
     String format = Objects.requireNonNull(config.getString("settings.format", ""));
     String message = event.getMessage().substring(isToggled ? 0 : character.length()).trim();
     if (config.getBoolean("settings.replaceplaceholdersinmessage")) {
@@ -70,8 +72,6 @@ public class StaffChatHandler {
     if (plugin.getConfig().getBoolean("discordsrv.enable")) {
       sendDiscordMessage(event.getPlayer(), message);
     }
-
-    event.setCancelled(true);
   }
 
   public void sendStaffChatMessage(String format, Supplier<String> nameSupplier, String message) {
