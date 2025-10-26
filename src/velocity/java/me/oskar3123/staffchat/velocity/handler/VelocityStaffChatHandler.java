@@ -5,11 +5,11 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 import java.util.function.Function;
-import me.oskar3123.staffchat.util.FormatUtils;
 import me.oskar3123.staffchat.util.Permissions;
 import me.oskar3123.staffchat.velocity.VelocityStaffChat;
 import me.oskar3123.staffchat.velocity.event.VelocityStaffChatEvent;
 import me.oskar3123.staffchat.velocity.event.VelocityStaffChatEvent.StaffChatResult;
+import me.oskar3123.staffchat.velocity.util.VelocityFormatUtils;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 
@@ -61,7 +61,16 @@ public class VelocityStaffChatHandler {
 
   private void broadcastStaffMessage(Player player, String format, String message) {
     String formattedMessage =
-        FormatUtils.replacePlaceholders(format, Function.identity(), player::getUsername, message);
+        VelocityFormatUtils.replacePlaceholders(
+            format,
+            Function.identity(),
+            () ->
+                player
+                    .getCurrentServer()
+                    .map(connection -> connection.getServerInfo().getName())
+                    .orElse(""),
+            player::getUsername,
+            message);
 
     TextComponent component =
         LegacyComponentSerializer.legacyAmpersand().deserialize(formattedMessage);
