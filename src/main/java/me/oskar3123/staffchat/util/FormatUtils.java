@@ -10,6 +10,17 @@ public class FormatUtils {
   public static String replacePlaceholders(
       String string,
       Function<String, String> colorize,
+      Supplier<String> serverSupplier,
+      Supplier<String> nameSupplier,
+      String message) {
+    string =
+        string.replaceAll("\\{SERVER}", StringUtils.sanitize(colorize.apply(serverSupplier.get())));
+    return replacePlaceholders(string, colorize, nameSupplier, message);
+  }
+
+  public static String replacePlaceholders(
+      String string,
+      Function<String, String> colorize,
       Supplier<String> nameSupplier,
       String message) {
     string = colorize.apply(string);

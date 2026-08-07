@@ -61,7 +61,16 @@ public class VelocityStaffChatHandler {
 
   private void broadcastStaffMessage(Player player, String format, String message) {
     String formattedMessage =
-        FormatUtils.replacePlaceholders(format, Function.identity(), player::getUsername, message);
+        FormatUtils.replacePlaceholders(
+            format,
+            Function.identity(),
+            () ->
+                player
+                    .getCurrentServer()
+                    .map(connection -> connection.getServerInfo().getName())
+                    .orElse(""),
+            player::getUsername,
+            message);
 
     TextComponent component =
         LegacyComponentSerializer.legacyAmpersand().deserialize(formattedMessage);
