@@ -7,7 +7,7 @@ import java.util.Set;
 import java.util.UUID;
 import me.oskar3123.staffchat.bungee.BungeeMain;
 import me.oskar3123.staffchat.bungee.event.BungeeStaffChatEvent;
-import me.oskar3123.staffchat.bungee.util.BungeeFormatUtils;
+import me.oskar3123.staffchat.util.FormatUtils;
 import me.oskar3123.staffchat.util.Permissions;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
@@ -66,7 +66,7 @@ public class BungeeChatListener implements Listener {
     message = chatEvent.getMessage();
 
     String appliedFormat =
-        BungeeFormatUtils.replacePlaceholders(
+        FormatUtils.replacePlaceholders(
             format,
             s -> ChatColor.translateAlternateColorCodes('&', s),
             () ->
